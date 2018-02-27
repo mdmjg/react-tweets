@@ -11,6 +11,14 @@ var express = require('express'),
 // Create an express instance and set a port variable
 var app = express();
 var port = process.env.PORT || 8080;
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/react-tweets";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  console.log("Database created!");
+  db.close();
+});
 
 // Set handlebars as the templating engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}));
@@ -43,6 +51,6 @@ var server = http.createServer(app).listen(port, function() {
 var io = require('socket.io').listen(server);
 
 // Set a stream listener for tweets matching tracking keywords
-twit.stream('statuses/filter',{ track: 'javascript'}, function(stream){
+twit.stream('statuses/filter',{ track: 'westemHSC'}, function(stream){
   streamHandler(stream,io);
 });

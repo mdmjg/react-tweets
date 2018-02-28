@@ -12,7 +12,7 @@ var express = require('express'),
 var app = express();
 var port = process.env.PORT || 8080;
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/react-tweets";
+var url = "mongodb://westem:Empowered2018@ds139138.mlab.com:39138/westemhsc";
 
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
@@ -28,8 +28,9 @@ app.set('view engine', 'handlebars');
 app.disable('etag');
 
 // Connect to our mongo database
-mongoose.connect('mongodb://localhost/react-tweets');
+// mongoose.connect('mongodb://localhost/react-tweets');
 
+mongoose.connect('mongodb://westem:Empowered2018@ds139138.mlab.com:39138/westemhsc');
 // Create a new ntwitter instance
 var twit = new twitter(config.twitter);
 
@@ -51,6 +52,6 @@ var server = http.createServer(app).listen(port, function() {
 var io = require('socket.io').listen(server);
 
 // Set a stream listener for tweets matching tracking keywords
-twit.stream('statuses/filter',{ track: 'westemHSC'}, function(stream){
+twit.stream('statuses/filter',{ track: 'women'}, function(stream){
   streamHandler(stream,io);
 });

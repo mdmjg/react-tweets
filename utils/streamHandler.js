@@ -4,7 +4,7 @@ module.exports = function(stream, io){
 
   // When tweets get sent our way ...
   stream.on('data', function(data) {
-    
+
     if (data['user'] !== undefined) {
 
       // Construct a new tweet object
@@ -27,6 +27,7 @@ module.exports = function(stream, io){
           // If everything is cool, socket.io emits the tweet.
           io.emit('tweet', tweet);
         }
+        else{console.log("ERROR: " +err)}
       });
 
     }

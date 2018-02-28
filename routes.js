@@ -28,9 +28,21 @@ module.exports = {
   page: function(req, res) {
     // Fetch tweets by page via param
     Tweet.getTweets(req.params.page, req.params.skip, function(tweets) {
-      var results =  {
-        results: tweets
-      }
+    var results = [];
+      for (var i = 0; i < tweets.length; i++) {{
+        item = tweets[i];
+        results.push(
+        {
+        author: item.author,
+        body: item.body,
+        avatar: item.avatar,
+        date: item.date})
+      }}
+
+
+      // var results =  {
+      //   results: tweets
+      // }
       // Render as JSON
       res.send(results);
 
